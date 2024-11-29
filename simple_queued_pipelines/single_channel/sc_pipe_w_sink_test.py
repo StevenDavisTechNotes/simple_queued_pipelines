@@ -1,8 +1,8 @@
 import queue as queue_mod
 import time
 
-from simple_queued_pipelines.pipe import Pipe
-from simple_queued_pipelines.sink import Sink
+from simple_queued_pipelines.single_channel.sc_pipe import Pipe
+from simple_queued_pipelines.single_channel.sc_sink import Sink
 from simple_queued_pipelines.utils.platform import setup_logging
 from simple_queued_pipelines.utils.test_helpers import RecordingCountingSinkActionSet
 
@@ -51,7 +51,6 @@ def do_test_scenario(
                 queue_in=queue_2,
                 report_error=report_error,
             ) as sink:
-        print(f"Started time: {time.perf_counter() - start_time}")
         try:
             for i in range(num_messages):
                 queue_1.put(i)
@@ -60,12 +59,8 @@ def do_test_scenario(
             queue_1.shutdown(immediate=True)
         except queue_mod.ShutDown:
             assert False
-        print(f"Enqueued time: {time.perf_counter() - start_time}")
         pipe.wait_for_completion()
-        print(f"pipe completed: {time.perf_counter() - start_time}")
         sink.wait_for_completion()
-        print(f"sink completed: {time.perf_counter() - start_time}")
-    print(f"Exited time: {time.perf_counter() - start_time}")
     end_time = time.perf_counter()
     keyboard_interrupted = (
         keyboard_interrupted
@@ -137,8 +132,8 @@ def test_add_polling_time():
 if __name__ == "__main__":
     setup_logging()
     try:
-        # test_one_sink_thread()
+        test_one_sink_thread()
         test_ten_sink_threads()
-        # test_add_polling_time()
+        test_add_polling_time()
     except KeyboardInterrupt:
         print("Interrupted!")

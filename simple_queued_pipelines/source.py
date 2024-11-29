@@ -55,21 +55,11 @@ class GeneratorSource(Generic[TOut], PipelineComponent[Callable[[], Generator[TO
         self.shutdown(
             immediate=self._keyboard_interrupted,
         )
-        # self._wrapped_callable(
-        #     self.queue_out.join
-        # )
 
     def shutdown(
             self,
             immediate: bool,
     ):
-        # if immediate:
-        #     self.queue_out.shutdown(
-        #         immediate=immediate,
-        #     )
-        # self._wrapped_callable(
-        #     self._wait_for_threads_to_complete
-        # )
         if (
             (not self.queue_out.is_shutdown)
             or (immediate != self.shutdown_is_immediate)

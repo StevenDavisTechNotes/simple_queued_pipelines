@@ -59,13 +59,6 @@ class Sink(Generic[TIn], PipelineComponent[Callable[[TIn], None]]):
             self,
             immediate: bool,
     ):
-        # if immediate:
-        #     self.queue_in.shutdown(
-        #         immediate=immediate,
-        #     )
-        # self._wrapped_callable(
-        #     self._wait_for_threads_to_complete
-        # )
         if (
             (not self.queue_in.is_shutdown)
             or (immediate != self.shutdown_is_immediate)

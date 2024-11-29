@@ -18,7 +18,7 @@ This class abstracts a pool of threads each consuming a generator (a function th
 ### Execution Graphs
 
 These are orchestrations connecting sources, pipes, and sinks to run until exhausted.
-The function `execute_in_three_stages` has a source, 2 pipes, and a sink.  
+The function `execute_single_channel_linear_execution_graph_with_four_stages` has a source, 2 pipes, and a sink.  
 
 ## Helpful Notes for Developers
 

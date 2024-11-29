@@ -92,8 +92,6 @@ class PipelineComponent(Generic[TAction], ABC):
                 )
                 if thread.is_alive():
                     still_live_threads.append(thread)
-            # if len(still_live_threads) > 0:
-                # logger.debug(f"Waiting for {len(still_live_threads)} threads to complete")
             possibly_live_threads = still_live_threads
 
     @abstractmethod

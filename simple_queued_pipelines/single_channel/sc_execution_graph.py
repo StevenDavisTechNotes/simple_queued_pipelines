@@ -2,8 +2,8 @@ import logging
 import queue as queue_mod
 from typing import Callable, Generator, TypeVar
 
-from simple_queued_pipelines.pipe import Pipe
-from simple_queued_pipelines.sink import Sink
+from simple_queued_pipelines.single_channel.sc_pipe import Pipe
+from simple_queued_pipelines.single_channel.sc_sink import Sink
 from simple_queued_pipelines.source import GeneratorSource
 
 logger = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ T1 = TypeVar('T1')
 T2 = TypeVar('T2')
 
 
-def execute_in_three_stages(
+def execute_single_channel_linear_execution_graph_with_four_stages(
         *,
         actions_0: tuple[Callable[[], Generator[T0, None, None]], ...],
         actions_1: tuple[Callable[[T0], T1], ...],
