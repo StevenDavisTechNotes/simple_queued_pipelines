@@ -1,0 +1,8 @@
+{
+  "include": [
+    "simple_queued_pipelines"
+  ],
+  "autoSearchPaths": false,
+  "pythonVersion": "3.13",
+  "typeCheckingMode": "standard",
+}
