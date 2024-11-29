@@ -42,8 +42,9 @@ python --version # to double confirm
 
 rm venv -r # to remove the venv folder
 get-childitem simple_queued_pipelines -include __pycache__ -recurse | remove-item -Force -Recurse
-py -3.13 -m venv venv
+py -3.13t -m venv venv
 .\venv\Scripts\Activate.ps1
+python --version
 python -c "import sys; print(sys.executable)"
 .\venv\Scripts\python.exe -m pip install --upgrade pip
 pip install -r .\requirements.txt

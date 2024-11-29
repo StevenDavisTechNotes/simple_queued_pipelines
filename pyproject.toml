@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "simple_queued_pipelines"
 version = "0.0.1"
+requires-python = ">=3.13"
 dependencies = [
     "pytest",
 ]
