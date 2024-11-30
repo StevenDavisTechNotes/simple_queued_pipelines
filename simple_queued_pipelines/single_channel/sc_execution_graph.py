@@ -2,8 +2,8 @@ import logging
 import queue as queue_mod
 from typing import Callable, Generator, TypeVar
 
-from simple_queued_pipelines.single_channel.sc_pipe import Pipe
-from simple_queued_pipelines.single_channel.sc_sink import Sink
+from simple_queued_pipelines.single_channel.sc_pipe import SingleChannelPipe
+from simple_queued_pipelines.single_channel.sc_sink import SingleChannelSink
 from simple_queued_pipelines.source import GeneratorSource
 
 logger = logging.getLogger(__name__)
@@ -50,7 +50,7 @@ def execute_single_channel_linear_execution_graph_with_four_stages(
                 queue_out=queue_0,
                 report_error=wrapped_report_error,
             ) as source, \
-            Pipe[T0, T1](
+            SingleChannelPipe[T0, T1](
                 actions=actions_1,
                 block_thread_timeout=block_thread_timeout,
                 name="Pipe-1",
@@ -58,7 +58,7 @@ def execute_single_channel_linear_execution_graph_with_four_stages(
                 queue_out=queue_1,
                 report_error=wrapped_report_error,
             ) as pipe_1, \
-            Pipe[T1, T2](
+            SingleChannelPipe[T1, T2](
                 actions=actions_2,
                 block_thread_timeout=block_thread_timeout,
                 name="Pipe-2",
@@ -66,7 +66,7 @@ def execute_single_channel_linear_execution_graph_with_four_stages(
                 queue_out=queue_2,
                 report_error=wrapped_report_error,
             ) as pipe_2, \
-            Sink[T2](
+            SingleChannelSink[T2](
                 actions=actions_3,
                 block_thread_timeout=block_thread_timeout,
                 name="Sink",

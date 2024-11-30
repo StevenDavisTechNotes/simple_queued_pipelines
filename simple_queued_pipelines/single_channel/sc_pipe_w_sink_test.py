@@ -1,8 +1,8 @@
 import queue as queue_mod
 import time
 
-from simple_queued_pipelines.single_channel.sc_pipe import Pipe
-from simple_queued_pipelines.single_channel.sc_sink import Sink
+from simple_queued_pipelines.single_channel.sc_pipe import SingleChannelPipe
+from simple_queued_pipelines.single_channel.sc_sink import SingleChannelSink
 from simple_queued_pipelines.utils.platform import setup_logging
 from simple_queued_pipelines.utils.test_helpers import RecordingCountingSinkActionSet
 
@@ -33,7 +33,7 @@ def do_test_scenario(
     keyboard_interrupted: bool = False
     start_time = time.perf_counter()
     with \
-            Pipe[int, int](
+            SingleChannelPipe[int, int](
                 actions=(pipe_action,)*num_threads_pipe,
                 block_thread_timeout=block_thread_timeout,
                 name="Pipe",
@@ -41,7 +41,7 @@ def do_test_scenario(
                 queue_out=queue_2,
                 report_error=report_error,
             ) as pipe, \
-            Sink[int](
+            SingleChannelSink[int](
                 actions=test_sinks.make_sink_actions(
                     num_sink_threads=num_threads_sink,
                     sink_processing_time=processing_time_sink,

@@ -9,7 +9,7 @@ TIn = TypeVar('TIn')
 TOut = TypeVar('TOut')
 
 
-class Pipe(Generic[TIn, TOut], PipelineComponent[Callable[[TIn], TOut]]):
+class SingleChannelPipe(Generic[TIn, TOut], PipelineComponent[Callable[[TIn], TOut]]):
     queue_in: queue_mod.Queue[TIn]
     queue_out: queue_mod.Queue[TOut]
     shutdown_is_immediate: bool

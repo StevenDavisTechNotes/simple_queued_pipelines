@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 TIn = TypeVar('TIn')
 
 
-class Sink(Generic[TIn], PipelineComponent[Callable[[TIn], None]]):
+class SingleChannelSink(Generic[TIn], PipelineComponent[Callable[[TIn], None]]):
     queue_in: queue_mod.Queue[TIn]
     shutdown_is_immediate: bool
 

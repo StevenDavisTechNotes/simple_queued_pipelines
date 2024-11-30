@@ -1,7 +1,7 @@
 import time
 from typing import Generator
 
-from simple_queued_pipelines.sync_list import ThreadSafeList
+from simple_queued_pipelines.thread_safe_list import ThreadSafeList
 
 
 class RecordingCountingSourceActionSet():

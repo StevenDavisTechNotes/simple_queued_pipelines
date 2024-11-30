@@ -1,7 +1,7 @@
 import queue as queue_mod
 import time
 
-from simple_queued_pipelines.single_channel.sc_sink import Sink
+from simple_queued_pipelines.single_channel.sc_sink import SingleChannelSink
 from simple_queued_pipelines.source import GeneratorSource
 from simple_queued_pipelines.utils.platform import setup_logging
 from simple_queued_pipelines.utils.test_helpers import RecordingCountingSinkActionSet, RecordingCountingSourceActionSet
@@ -36,7 +36,7 @@ def do_test_scenario(
                 queue_out=queue_mod.Queue(maxsize=queue_in_size),
                 report_error=report_error,
             ) as source, \
-            Sink[int](
+            SingleChannelSink[int](
                 actions=test_sinks.make_sink_actions(
                     num_sink_threads=num_threads_sink,
                     sink_processing_time=processing_time_sink,
