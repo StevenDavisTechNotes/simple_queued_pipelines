@@ -1,6 +1,6 @@
 # gc requirements.txt | sort > c:\temp\t.txt
 # pip install -r requirements.txt
-# pip freeze > frozen_requirements.txt
+# pip freeze > requirements_frozen.txt
 autopep8
 build
 flake8
@@ -8,3 +8,4 @@ isort
 psutil
 pyclean
 pytest
+

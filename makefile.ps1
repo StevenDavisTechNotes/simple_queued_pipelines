@@ -1,4 +1,4 @@
-# cSpell: ignore venv, childitem, autopep8, pyclean, pyright, findstr, pycache, pytest
+# cSpell: ignore autopep8, childitem, findstr, isort, pycache, pyclean, pyright, pytest, venv autopep8, childitem, findstr, pycache, pyclean, pyright, pytest, venv
 
 <#
 .SYNOPSIS
@@ -33,25 +33,37 @@ Runs the default target, which is the Test function.
 #>
 
 $DefaultTarget = "Test"
+$SrcFolderName = "simple_queued_pipelines"
+$PythonVersion = "3.13t"
+
+function Build-Package() {
+	py -m build
+}
+
+function Enable-Venv() {
+	.\venv\Scripts\Activate.ps1
+}
 
 function Install-Venv() {
 	Remove-Item venv -r
-	get-childitem simple_queued_pipelines -include __pycache__ -recurse | remove-item -Force -Recurse
-	py -3.13t -m venv venv
-	.\venv\Scripts\Activate.ps1
+	get-childitem $SrcFolderName -include __pycache__ -recurse | remove-item -Force -Recurse
+	py "-${PythonVersion}" -m venv venv
+	Enable-Venv
 	python --version
 	python -c "import sys; print(sys.executable)"
 	.\venv\Scripts\python.exe -m pip install --upgrade pip
 	pip install -r .\requirements.txt
-	pip freeze > frozen_requirements.txt
+	pip freeze > requirements_frozen.txt
 }
 
-function Build-Package() {
-	py -m build
-}	
+function Repair-Format() {
+	Enable-Venv
+	isort $SrcFolderName
+	autopep8 --in-place --recursive $SrcFolderName
+}
 
 function Search-Spelling() {
-	& "cspell-cli" "simple_queued_pipelines/**/*.py" `
+	& "cspell-cli" "${SrcFolderName}/**/*.py" `
 		"--no-progress" "--fail-fast" `
 		"--exclude" "__pycache__" `
 		"--exclude" ".git" `
@@ -59,19 +71,16 @@ function Search-Spelling() {
 }
 
 function Test() {
-	.\venv\Scripts\Activate.ps1
+	Enable-Venv
 	Clear-Host
-	if ($?) { pyclean simple_queued_pipelines }
-	if ($?) { flake8 simple_queued_pipelines }
-	if ($?) { pyright simple_queued_pipelines }
+	if ($?) { pyclean $SrcFolderName }
+	if ($?) { flake8 $SrcFolderName }
+	if ($?) { isort --check-only $SrcFolderName }
+	if ($?) { pyright $SrcFolderName }
 	if ($?) { Search-Spelling }
-	if ($?) { python -m pytest simple_queued_pipelines }
+	if ($?) { python -m pytest $SrcFolderName }
 }
 
-function Repair-Format() {
-	.\venv\Scripts\Activate.ps1
-	autopep8 --in-place --recursive simple_queued_pipelines
-}
 
 if ($args.Length -eq 0) {
 	& $DefaultTarget

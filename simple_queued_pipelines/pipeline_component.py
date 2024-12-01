@@ -3,7 +3,9 @@ import queue as queue_mod
 from abc import ABC, abstractmethod
 from typing import Callable, Generic, TypeVar
 
-from simple_queued_pipelines.error_propagating_thread import ExceptionRecordingThread
+from simple_queued_pipelines.error_propagating_thread import (
+    ExceptionRecordingThread,
+)
 from simple_queued_pipelines.thread_safe_list import ThreadSafeList
 
 logger = logging.getLogger(__name__)

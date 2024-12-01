@@ -9,9 +9,11 @@
     "editor.codeActionsOnSave": {
         "source.formatOnSave": "explicit"
     },
-    "python.analysis.autoFormatStrings": false,
+    "isort.args":[
+        "--settings-file", 
+        "pyproject.toml"
+    ],
     "python.analysis.diagnosticMode": "workspace",
-    "python.languageServer": "Pylance",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "search.exclude": {
