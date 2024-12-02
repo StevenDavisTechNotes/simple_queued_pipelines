@@ -7,5 +7,7 @@ from simple_queued_pipelines.single_channel.sc_pipe import \
 from simple_queued_pipelines.single_channel.sc_sink import \
     SingleChannelSink  # noqa: F401
 from simple_queued_pipelines.source import GeneratorSource  # noqa: F401
-from simple_queued_pipelines.thread_safe_list import \
+from simple_queued_pipelines.thread_safe_collections.partitioned_queue import \
+    PartitionedQueue  # noqa: F401
+from simple_queued_pipelines.thread_safe_collections.thread_safe_list import \
     ThreadSafeList  # noqa: F401

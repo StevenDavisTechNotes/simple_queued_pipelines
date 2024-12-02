@@ -6,7 +6,9 @@ from typing import Callable, Generic, TypeVar
 from simple_queued_pipelines.error_propagating_thread import (
     ExceptionRecordingThread,
 )
-from simple_queued_pipelines.thread_safe_list import ThreadSafeList
+from simple_queued_pipelines.thread_safe_collections.thread_safe_list import (
+    ThreadSafeList,
+)
 
 logger = logging.getLogger(__name__)
 TAction = TypeVar('TAction', bound=Callable)
