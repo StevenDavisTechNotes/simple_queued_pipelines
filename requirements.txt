@@ -6,4 +6,3 @@ isort
 psutil
 pyclean
 pytest
-
