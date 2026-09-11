@@ -1,4 +1,7 @@
 # Simple Queued Pipelines
+
+> **Note**: This project was created as part of the [Spark Aggregation Methods](https://github.com/StevenDavisTechNotes/SparkAggregationMethods/blob/master/README.md) project.
+
 Simple package to create thread-backed queued pipelines in Python
 
 ## Concepts
