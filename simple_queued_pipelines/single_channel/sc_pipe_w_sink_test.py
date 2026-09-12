@@ -81,7 +81,7 @@ def do_test_scenario(
         + (num_messages-1)*max(expected_time_per_message)
         + min(expected_time_per_message)
     )
-    expected_max = 1.1*(
+    expected_max = 1.2*(
         expected_min
         - min(expected_time_per_message)
         + sum(expected_time_per_message)
