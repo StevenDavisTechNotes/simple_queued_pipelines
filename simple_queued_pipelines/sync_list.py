@@ -1,7 +1,4 @@
 import threading
-from typing import TypeVar
-
-T = TypeVar('T')
 
 
 class ThreadSafeList[T]:

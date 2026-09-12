@@ -1,16 +1,15 @@
 import logging
 import queue as queue_mod
 from abc import ABC, abstractmethod
-from typing import Callable, Generic, TypeVar
+from typing import Callable
 
 from simple_queued_pipelines.error_propagating_thread import ExceptionRecordingThread
 from simple_queued_pipelines.sync_list import ThreadSafeList
 
 logger = logging.getLogger(__name__)
-TAction = TypeVar('TAction', bound=Callable)
 
 
-class PipelineComponent(Generic[TAction], ABC):
+class PipelineComponent[TAction: Callable](ABC):
     _actions: tuple[TAction, ...]
     _execution_exceptions: ThreadSafeList[Exception]
     block_thread_timeout: float

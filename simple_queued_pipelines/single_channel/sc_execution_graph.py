@@ -1,18 +1,16 @@
 import logging
 import queue as queue_mod
-from typing import Callable, Generator, TypeVar
+import threading
+from typing import Callable, Generator
 
 from simple_queued_pipelines.single_channel.sc_pipe import Pipe
 from simple_queued_pipelines.single_channel.sc_sink import Sink
 from simple_queued_pipelines.source import GeneratorSource
 
 logger = logging.getLogger(__name__)
-T0 = TypeVar('T0')
-T1 = TypeVar('T1')
-T2 = TypeVar('T2')
 
 
-def execute_single_channel_linear_execution_graph_with_four_stages(
+def execute_single_channel_linear_execution_graph_with_four_stages[T0, T1, T2](
         *,
         actions_0: tuple[Callable[[], Generator[T0, None, None]], ...],
         actions_1: tuple[Callable[[T0], T1], ...],
@@ -24,7 +22,7 @@ def execute_single_channel_linear_execution_graph_with_four_stages(
         queue_2: queue_mod.Queue[T2] | None = None,
         report_error: Callable[[str], None],
 ) -> None:
-    was_aborted: bool = False
+    aborted = threading.Event()
     queue_0 = queue_0 or queue_mod.Queue()
     queue_1 = queue_1 or queue_mod.Queue()
     queue_2 = queue_2 or queue_mod.Queue()
@@ -37,10 +35,11 @@ def execute_single_channel_linear_execution_graph_with_four_stages(
         queue_2.shutdown(immediate=immediate)
 
     def wrapped_report_error(error: str) -> None:
-        nonlocal was_aborted
-        was_aborted = True
-        report_error(error)
-        stop(immediate=True)
+        try:
+            aborted.set()
+            report_error(error)
+        finally:
+            stop(immediate=True)
 
     with \
             GeneratorSource[T0](
@@ -91,7 +90,7 @@ def execute_single_channel_linear_execution_graph_with_four_stages(
         + pipe_2.execution_exceptions
         + sink.execution_exceptions
     )
-    if was_aborted:
+    if aborted.is_set():
         exceptions.append(Exception("Execution was aborted"))
     if len(exceptions) > 0:
         msgs = "\n".join([str(e) for e in exceptions])

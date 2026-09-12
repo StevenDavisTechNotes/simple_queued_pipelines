@@ -1,15 +1,14 @@
 import contextlib
 import logging
 import queue as queue_mod
-from typing import Callable, Generator, Generic, TypeVar
+from typing import Callable, Generator
 
 from simple_queued_pipelines.pipeline_component import PipelineComponent
 
 logger = logging.getLogger(__name__)
-TOut = TypeVar('TOut')
 
 
-class GeneratorSource(Generic[TOut], PipelineComponent[Callable[[], Generator[TOut, None, None]]]):
+class GeneratorSource[TOut](PipelineComponent[Callable[[], Generator[TOut, None, None]]]):
     queue_out: queue_mod.Queue[TOut]
     shutdown_is_immediate: bool
 

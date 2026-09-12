@@ -1,15 +1,13 @@
 import logging
 import queue as queue_mod
-from typing import Callable, Generic, TypeVar
+from typing import Callable
 
 from simple_queued_pipelines.pipeline_component import PipelineComponent
 
 logger = logging.getLogger(__name__)
-TIn = TypeVar('TIn')
-TOut = TypeVar('TOut')
 
 
-class Pipe(Generic[TIn, TOut], PipelineComponent[Callable[[TIn], TOut]]):
+class Pipe[TIn, TOut](PipelineComponent[Callable[[TIn], TOut]]):
     queue_in: queue_mod.Queue[TIn]
     queue_out: queue_mod.Queue[TOut]
     shutdown_is_immediate: bool
