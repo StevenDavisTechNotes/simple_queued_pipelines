@@ -1,0 +1,39 @@
+default_language_version:
+  python: python3.13
+fail_fast: true
+
+repos:
+- repo: https://github.com/PyCQA/isort
+  rev: 9.0.1
+  hooks:
+  - id: isort
+
+- repo: local
+  hooks:
+  - id: autopep8-local
+    name: autopep8 local
+    entry: uv run python -m autopep8 --in-place --recursive .
+    language: system
+    types: [python]
+    pass_filenames: false
+
+  - id: flake8-local
+    name: flake8 local
+    entry: uv run python -m flake8
+    language: system
+    types: [python]
+    pass_filenames: false
+
+  - id: ty-check
+    name: ty type checker
+    entry: uv run python -m ty check
+    language: system
+    types: [python]
+    pass_filenames: false
+
+  - id: pytest-local
+    name: pytest local
+    entry: uv run python -m pytest simple_queued_pipelines
+    language: system
+    types: [python]
+    pass_filenames: false

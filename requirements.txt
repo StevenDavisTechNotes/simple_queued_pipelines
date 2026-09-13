@@ -1,9 +1,0 @@
-# pip install -r requirements.txt
-# pip freeze > frozen_requirements.txt
-autopep8
-build
-flake8
-isort
-psutil
-pyclean
-pytest

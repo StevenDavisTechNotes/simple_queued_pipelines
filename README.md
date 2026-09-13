@@ -23,46 +23,46 @@ This class abstracts a pool of threads each consuming a generator (a function th
 These are orchestrations connecting sources, pipes, and sinks to run until exhausted.
 The function `execute_single_channel_linear_execution_graph_with_four_stages` has a source, 2 pipes, and a sink.  
 
-## Helpful Notes for Developers
+## 🛠 Getting Started
 
-<!-- cSpell: ignore venv, childitem, autopep8, pyclean, pyright, findstr, pycache, pytest -->
+We use `uv` for blazing-fast, unified Python dependency management.
 
-### Installing Python on Windows
-Use Microsoft Store or [download link](https://www.python.org/downloads/release/python-397/)
-- Screen 1
-    - Customize
-- Optional Features (only check)
-    - pip
-    - py launcher
-- Advanced Options (only check)
-    - Precompile standard library
-- Disable MAX_PATH
+### 1. Environment Setup
 
-Go into Windows Terminal
-```ps1
-py -0  # to see what version is default
-python --version # to double confirm
+> **Note**: This directory contains a local `.python-version` file specifying `3.13t`. When you run `uv` commands in this folder, `uv` will automatically fetch and use the **free-threaded** (GIL-free) build of Python 3.13 to enable true multi-threading.
 
-rm venv -r # to remove the venv folder
-get-childitem simple_queued_pipelines -include __pycache__ -recurse | remove-item -Force -Recurse
-py -3.13t -m venv venv
-.\venv\Scripts\Activate.ps1
-python --version
-python -c "import sys; print(sys.executable)"
-.\venv\Scripts\python.exe -m pip install --upgrade pip
-pip install -r .\requirements.txt
-pip freeze > frozen_requirements.txt
-py -m build
+Initialize the environment and install dependencies:
+```bash
+uv sync
 ```
-Then Close and reopen VSCode
 
-### Handy command lines
-
+### 2. Code Standards (`pre-commit`)
+We use `pre-commit` to automatically run formatting (`isort`, `autopep8`) and linting (`flake8`, `ty`) before you commit code.
+To install the pre-commit hooks into your local git repository, run:
+```bash
+uv run pre-commit install
 ```
-. .\venv\Scripts\Activate.ps1
-flake8 simple_queued_pipelines
-.\venv\Scripts\Activate.ps1 ; clear ; if ($?) { pyclean simple_queued_pipelines } ; if ($?) { flake8 simple_queued_pipelines } ; if ($?) { pyright simple_queued_pipelines } ; if ($?) { python -m pytest simple_queued_pipelines }
-autopep8 --recursive --diff simple_queued_pipelines | findstr /i /c:'--- original/'
-autopep8 --recursive  --in-place simple_queued_pipelines
-& "cspell-cli" "simple_queued_pipelines/**/*.py" "--no-summary" "--no-progress" "--exclude" "__pycache__" "--exclude" ".git" "--exclude" "venv" "--fail-fast"
+
+### 3. Handy Commands
+
+To run the test suite:
+```bash
+(
+        (cd common_python && uv run pytest spark_agg_methods_common_python && cd ..) -and
+        (cd py_spark && uv run pytest src && cd ..) -and
+        (cd python_dask && uv run pytest src && cd ..) -and
+        (cd python_single_threaded && uv run pytest src && cd ..) -and
+        (cd python_free_threaded && uv run pytest src && cd ..) -and
+        (cd simple_queued_pipelines && uv run pytest simple_queued_pipelines && cd ..) -and
+        (Write-Host "Success! All tests passed!")
+    )
+    (cd scala_spark && sbt test && cd ..) &&
+```
+
+To manually trigger formatting and static analysis:
+```bash
+uv run isort admin common_python py_spark python_dask python_single_threaded python_free_threaded simple_queued_pipelines
+uv run autopep8 --in-place --recursive uv run pytest admin common_python py_spark python_dask python_single_threaded python_free_threaded simple_queued_pipelines
+uv run flake8 uv run pytest admin common_python py_spark python_dask python_single_threaded python_free_threaded simple_queued_pipelines
+uv run python -m ty check
 ```
