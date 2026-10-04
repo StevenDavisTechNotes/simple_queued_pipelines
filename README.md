@@ -88,7 +88,9 @@ Licensed under the GNU Lesser General Public License v2.1 or later. See [LICENSE
 
 This project uses [`uv`](https://docs.astral.sh/uv/) to manage dependencies.
 
-> **Note**: This directory contains a local `.python-version` file specifying `3.13t`. When you run `uv` commands in this folder, `uv` will automatically fetch and use the free-threaded build of Python 3.13.
+> **Note**: This directory contains a local `.python-version` file specifying `3.14t`. When you run `uv` commands in this folder, `uv` will automatically fetch and use the free-threaded build of Python 3.14.
+>
+> The library itself supports Python 3.13 or newer (`requires-python = ">=3.13"` in `pyproject.toml`). The development environment is deliberately pinned higher, to 3.14t, in `.python-version`, `pyrightconfig.json` and `default_language_version` in `.pre-commit-config.yaml`. The `isort` pre-commit hook builds a Rust (PyO3) dependency that does not support free-threaded CPython below 3.14, so pre-commit fails to install on 3.13t. Keep the three dev pins in step, and do not raise `requires-python` to match them.
 
 Create the environment and install the dev tools:
 

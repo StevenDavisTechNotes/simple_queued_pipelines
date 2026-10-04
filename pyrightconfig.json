@@ -3,6 +3,6 @@
     "simple_queued_pipelines"
   ],
   "autoSearchPaths": false,
-  "pythonVersion": "3.13",
+  "pythonVersion": "3.14",
   "typeCheckingMode": "standard",
 }
