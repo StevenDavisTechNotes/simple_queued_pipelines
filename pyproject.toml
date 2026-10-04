@@ -1,16 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "simple-queued-pipelines"
 version = "0.0.1"
-description = "Simple Queued Pipelines submodule"
+description = "Simple components to create thread-backed queued pipelines in Python"
+readme = "README.md"
+license = "LGPL-2.1-or-later"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Steven Davis", email = "stevendavisma@gmail.com" },
+]
 requires-python = ">=3.13"
 dependencies = []
+keywords = [
+    "pipeline",
+    "queue",
+    "threading",
+    "multithreading",
+    "concurrency",
+    "free-threaded",
+    "nogil",
+    "producer-consumer",
+    "dataflow",
+    "streaming",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Free Threading :: 2 - Beta",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/StevenDavisTechNotes/simple_queued_pipelines"
+Author = "https://github.com/StevenDavisTechNotes"
+
+[tool.hatch.build.targets.sdist]
+include = ["/simple_queued_pipelines"]
+
+[tool.hatch.build.targets.wheel]
+# Tests are co-located as *_test.py; test_helpers.py is their shared support code.
+exclude = ["*_test.py", "test_helpers.py"]
 
 [dependency-groups]
 dev = [
+    "autopep8",
+    "flake8",
+    "isort",
     "pre-commit",
     "pytest",
-    "flake8",
-    "autopep8",
-    "isort",
-    "ty"
+    "ty",
 ]
+
+[tool.isort]
+multi_line_output = 5
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 120

@@ -1,7 +1,16 @@
+import logging
+import sys
 import time
 from typing import Generator
 
 from simple_queued_pipelines.sync_list import ThreadSafeList
+
+
+def setup_logging():
+    logging.basicConfig(
+        stream=sys.stdout,
+        level=logging.DEBUG if __debug__ else logging.INFO,
+    )
 
 
 class RecordingCountingSourceActionSet():

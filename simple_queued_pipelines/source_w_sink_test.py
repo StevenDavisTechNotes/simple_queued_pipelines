@@ -3,8 +3,9 @@ import time
 
 from simple_queued_pipelines.single_channel.sc_sink import Sink
 from simple_queued_pipelines.source import GeneratorSource
-from simple_queued_pipelines.utils.platform import setup_logging
-from simple_queued_pipelines.utils.test_helpers import RecordingCountingSinkActionSet, RecordingCountingSourceActionSet
+from simple_queued_pipelines.test_helpers import (
+    RecordingCountingSinkActionSet, RecordingCountingSourceActionSet, setup_logging,
+)
 
 
 def do_test_scenario(

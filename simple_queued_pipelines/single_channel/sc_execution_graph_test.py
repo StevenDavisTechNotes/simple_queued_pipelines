@@ -4,8 +4,9 @@ import time
 from simple_queued_pipelines.single_channel.sc_execution_graph import (
     execute_single_channel_linear_execution_graph_with_four_stages,
 )
-from simple_queued_pipelines.utils.platform import setup_logging
-from simple_queued_pipelines.utils.test_helpers import RecordingCountingSinkActionSet, RecordingCountingSourceActionSet
+from simple_queued_pipelines.test_helpers import (
+    RecordingCountingSinkActionSet, RecordingCountingSourceActionSet, setup_logging,
+)
 
 
 class TestSingleChannelExecutionGraphWithFourStages:
