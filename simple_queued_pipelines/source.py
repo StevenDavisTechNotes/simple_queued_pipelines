@@ -1,7 +1,7 @@
 import contextlib
 import logging
 import queue as queue_mod
-from typing import Callable, Generator
+from collections.abc import Callable, Generator
 
 from simple_queued_pipelines.pipeline_component import PipelineComponent
 

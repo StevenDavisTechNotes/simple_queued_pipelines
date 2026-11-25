@@ -1,7 +1,7 @@
 import logging
 import queue as queue_mod
 import threading
-from typing import Callable, Generator
+from collections.abc import Callable, Generator
 
 from simple_queued_pipelines.single_channel.sc_pipe import Pipe
 from simple_queued_pipelines.single_channel.sc_sink import Sink

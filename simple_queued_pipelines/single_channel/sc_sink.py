@@ -1,6 +1,6 @@
 import logging
 import queue as queue_mod
-from typing import Callable
+from collections.abc import Callable
 
 from simple_queued_pipelines.pipeline_component import PipelineComponent
 

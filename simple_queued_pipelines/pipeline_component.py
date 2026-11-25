@@ -1,7 +1,7 @@
 import logging
 import queue as queue_mod
 from abc import ABC, abstractmethod
-from typing import Callable
+from collections.abc import Callable
 
 from simple_queued_pipelines.error_propagating_thread import ExceptionRecordingThread
 from simple_queued_pipelines.sync_list import ThreadSafeList

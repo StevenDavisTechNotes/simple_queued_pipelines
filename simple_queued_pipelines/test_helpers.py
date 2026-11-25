@@ -1,7 +1,7 @@
 import logging
 import sys
 import time
-from typing import Generator
+from collections.abc import Generator
 
 from simple_queued_pipelines.sync_list import ThreadSafeList
 
