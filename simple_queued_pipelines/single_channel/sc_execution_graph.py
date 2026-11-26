@@ -91,7 +91,6 @@ def execute_single_channel_linear_execution_graph_with_four_stages[T0, T1, T2](
         + sink.execution_exceptions
     )
     if aborted.is_set():
-        exceptions.append(Exception("Execution was aborted"))
+        exceptions.append(RuntimeError("Execution was aborted"))
     if len(exceptions) > 0:
-        msgs = "\n".join([str(e) for e in exceptions])
-        raise Exception(f"Exceptions occurred: {msgs}")
+        raise ExceptionGroup("Exceptions occurred in the execution graph", exceptions)
